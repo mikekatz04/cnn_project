@@ -10,7 +10,14 @@ I focused on the amplitude of the fourier transform of an EMRI signal for the fe
 
 The second aspect of the project was to use a convolutional autoencoder to reduce the dimensionality of the amplitude spectrum from 800 to lower dimensions. This is for the purpose of using future regression studies with techniques such as gaussian process regression. For this task, the features were the same as the previous task, but the labels were the features themselves, as in any autoencoder. Below are two images showing the output of the autoencoder compared to the initial amplitudes. 
 
-![](images/autoencoder_img_5.png?raw=true)	![](images/autoencoder_img_90.png?raw=true)
+![](images/autoencoder_img_5.png?raw=true)
+
+The amplitude spectrum is shown above for a binary with low eccentricity (0.028) and a lower inclination (0.42 radians). The prediction from the autoencoder is shown in dotted orange. 
+
+
+![](images/autoencoder_img_90.png?raw=true)
+
+The amplitude spectrum is shown above for a binary with a higher eccentricity (0.37) and a lower inclination (0.35 radians). The prediction from the autoencoder is shown in dotted orange. Higher eccentricities lead to signals with higher order harmonics.
 
 Inline-style: 
 !(https://github.com/mikekatz04/cnn_project/autoencoder_img_0.png "Logo Title Text 1")
