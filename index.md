@@ -1,7 +1,7 @@
 # Convolutional Neural Network for Graviational Wave Analysis
 
 Test this. 
-![]((https://github.com/mikekatz04/cnn_project/autoencoder_img_0.png?raw=true)
+![](autoencoder_img_0.png?raw=true)
 
 Inline-style: 
 !(https://github.com/mikekatz04/cnn_project/autoencoder_img_0.png "Logo Title Text 1")
