@@ -2,6 +2,9 @@
 
 Test this. 
 
+Inline-style: 
+![alt text](https://github.com/mikekatz04/cnn_project/autoencoder_img_0.png "Logo Title Text 1")
+
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Markdown
