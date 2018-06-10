@@ -1,4 +1,6 @@
-# Convolutional Neural Network for Graviational Wave Analysis
+# Convolutional Neural Network for Gravitational Wave Analysis
+
+
 
 ## Abstract:
 
@@ -9,6 +11,8 @@ LISA is a future space based mission to measure gravitational waves travelling f
 I focused on the amplitude of the fourier transform of an EMRI signal for the features in this project. Two tasks were of most interest to me in this project. The first task was to use regression to predict the three fundamental frequencies that make up the complex time-domain EMRI signal. To do this, I used a 1-dimensional convolutional neural network with the amplitudes in each frequency bin as the features and the theoretically determined fundamental freqeuncies as the labels. I additionally used a nearest neighbors algorithm for reference. However, the goal was to make a scalable project that can query fast with the data after many input waveforms. A nearest neighbors regressor is not expected to scale well in terms of query time, and, therefore, was not the main focus of the project. 
 
 The second aspect of the project was to use a convolutional autoencoder to reduce the dimensionality of the amplitude spectrum from 800 to lower dimensions. This is for the purpose of using future regression studies with techniques such as gaussian process regression. For this task, the features were the same as the previous task, but the labels were the features themselves, as in any autoencoder. Below are two images showing the output of the autoencoder compared to the initial amplitudes. 
+
+My key findings for the fundamental frequency regressor were that reducing the kernel size, number of convolutional layers, or changing the output layer activation function from linear to ReLu improves the accruacy and precision of the fit. Most of the CNNs outperformed the nearest neighbors regressor. For the autoencoder, more convolutional layers performed worse. The ideal layers for autencoding was found to be two convolutional layers for encoding and 3 for decoding.
 
 ![](images/autoencoder_img_5.png?raw=true)
 
