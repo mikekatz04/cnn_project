@@ -64,7 +64,7 @@ The best models turn out to be 2 and 4, i.e. (K=50, CL=4, Act=Lin) and (K=10, CL
 
 The worst model is model 1, (K=50, CL=2, Act=Lin). This has the least number of convolutional layers and the largest kernel. Lowering the kernel or adding layers improves the accuracy of the fit. Additionally, model 5 has the same number of layers and kernel size as model 1, with a different activation. This indicates replacing the linear activation on the output layer with a ReLu activation makes the model more precise. This makes sense. All of the outputs are greater than zero; ReLu activation reinforces this requirement.
 
-All neural network models 2 to 5 all perform better than nearest neighbors. This is quite encouraging for scaling. This means the faster query operation can also perform better. 
+CNN models 2 to 5 all perform better than nearest neighbors. This is quite encouraging for scaling. This means the faster query operation can also perform better. 
 
 
 ![](images/means_and_deviations.png?raw=true)
