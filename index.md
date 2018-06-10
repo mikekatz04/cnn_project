@@ -45,10 +45,10 @@ For all models I tried, I used 2 or 4 convolutional layers (CL), each with a cor
 
 ![](images/fund_freq_learning_curves.png?raw=true)
 
-The learning curves for the K=50, CL=2, and ReLu activation on the output layer are shown above. 
+The learning curves for K=50, CL=2, and ReLu activation on the output layer are shown above. 
 
 
-In addition to the convolutional neural network, I also used nearest neighbor, which I thought would work well on this small scale within the grid of input parameters. However, outside of these simplistic settings, I do not expect this method to remain as accurate and fast. I used a three nearest neighbors regressor, with weights based on the distance to the three neighbors. With the three frequencies rescaled from zero to one, I used an L-2 distance measure.
+In addition to the convolutional neural network, I also used a nearest neighbor regressor, which I thought would work well on this small scale within the grid of input parameters. However, outside of these simplistic settings, I do not expect this method to remain as accurate and fast. I used a three nearest neighbors regressor, with weights based on the distance to the three neighbors. With the three frequencies rescaled from zero to one, I used an L-2 distance metric.
 
 ### FFR Results
 
