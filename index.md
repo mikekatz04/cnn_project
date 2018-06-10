@@ -1,6 +1,6 @@
-## Convolutional Neural Network for Graviational Wave Analysis
+# Convolutional Neural Network for Graviational Wave Analysis
 
-### Abstract:
+## Abstract:
 
 For my final project in EECS 349 (Northwestern University), I investigated the use of neural networks, specifically convolutional neural networks, in gravitational wave data analysis related to the Laser Interferometer Space Antenna (LISA). I worked on this project by myself. My contact email address is mikekatz04@gmail.com. 
 
@@ -20,7 +20,7 @@ The amplitude spectrum is shown above for a binary with low eccentricity (0.028)
 The amplitude spectrum is shown above for a binary with a higher eccentricity (0.37) and a lower inclination (0.35 radians). The prediction from the autoencoder is shown in dotted orange. Higher eccentricities lead to signals with higher order harmonics.
 
 
-### Data Creation
+## Data Creation
 
 For this project, I generated datasets using a waveform genearator by Chua et al 2017. I used the numerical kludge waveform, which is fast compared to high fidelity waveforms, but slow compared to analytical generators. I fixed all of the parameters of the waveform generator except for the eccentricity an inclination. The eccentricity defines the ellipticity of the orbit away from circularity. I sampled 12 hrs of waveform data on a grid of eccentricities from 0.01 to 0.4 and inclinations from 0.01 to 80 degrees. My training set consisted of 	10000 of these waveforms. I then used numpy's discrete fourier transform to find the amplitude spectrum of each waveform. The signals vary from 0.1 mHz to 100 mHz. Therefore, I cut down the dataset from 21601 frequency bins to the 859 bins within those two limiting frequencies. I then normalized the amplitude spectrum so the convolutional network could focus on the shapes of each waveform rather than the overall magnitude. This is because extrinsic quantities like the distance can modulate the signal amplitude; I wanted this inital trainer to focus on the intrinsic quanties specific to each system. 
 
@@ -29,9 +29,9 @@ In addition to the amplitude spectrum, I also had the generator output the traje
 Due to the computation time for generating these waveforms, I decided to generate a smaller test set than I plan to use in the future. Within the eccentricity and inclination limits stated above, I drew each from a uniform distribution each parameter to generate 100 test waveforms. Once again, I found the fundamental frequencies of the orbit in the same way as mentioned above.
 
 
-### Fundamental Frequency Regressor
+## Fundamental Frequency Regressor
 
-#### Methods
+### Methods
 
 One issue with fourier transforms is spectral leakage between neighboring bins. This makes finding peaks an issue. Additionally, the bins are not centered on the integer multiples of the fundamental frequencies (higher order harmonics). Therefore, locating peaks can only help determine integer multiples of frequencies to a degree of certainty equal to the bin width. Also, more peaks helps further determine the system of equations we could algebraically use to determine the frequencies. However, lower eccentricity signals radiate at a small amount of frequencies, making the system of equations impossible to solve. 
 
@@ -41,7 +41,7 @@ For all models I tried, I used 2 or 4 convolutional layers with a corresponding 
 
 In addition to the convolutional neural network, I also used nearest neighbor, which I thought would work well on this small scale within the grid of input parameters. However, outside of these simplistic settings, I do not expect this method to remain as accurate and fast. I used a three nearest neighbors regressor, with weights based on the distance to the three neighbors. With the three frequencies rescaled to zero to one, I used a euclidean metric, and an L-2 distance measure.
 
-#### Results
+### Results
 
 Overall, all five models tested ran very similarly, which is encouraging. It seems the underlying function is not smooth. There is reason for this. The test samples are arranged by increasing eccentricity, but have varying inclinations. These two properties do not affect the phi frequency, but will after the theta and r frequencies, therefore, making these curves oscillate. In the future, I would look into more drop out layers to try and smooth it out, pending a deeper analysis of the overfitting. The plot below shows the six models I tested, including the three nearest neighbors, compared to the actual fundamental frequencies. The solid lines are the actuals while the dotted lines are the predictions. The fundamental frequency in phi is smoother, and better reproduced by the models. The frequency in the radial direction is very chaotic. So are the model fits.
 
@@ -63,13 +63,13 @@ All neural network models 2 to 5 all perform better than nearest neighbors. This
 The mean errors and standard deviation on the errors for each model 1 through 6 are shown for each frequency. 
  
 
-### Amplitude Spectrum Autoencoder
+## Amplitude Spectrum Autoencoder
 
-#### Methods
+### Methods
 
 My methods for this part of the project were similar to the first. For the autoencoder, I tried a few different architectures. However, I landed on a convolutional autoencoder with two convolutional and pooling layers to encode the spectrum, and 3 layers with upscaling to decode it. The model with 4 encoding and 5 decoding layers returned worse results when compared to the original curves. The overfitting may have been the issue here. The kernel size for all convolutional layers was 20. The pooling layers pooled by a factor of 2, same with the upscaling layers. The convolutional layers had ReLu activation functions. The output layer had linear activation. It would interested to try this again with ReLu activation on the ouput layer.
 
-#### Results
+### Results
 
 Two images are seen at the beginning of this page showing the results of the autoencoder. I think calculating the error can actually be misleading for analyzing the autoencoder's success. The key to this entire problem is to claculate harmonics of the fundamental frequencies from the amplitude spectral peaks. Therefore, the shape of the autoencoder and how it captures peaks are the most important factors for this project. However, for future projects, this will be a concern because The goal would be to reproduce the waveforms, which would require more precise amplitude spectrums. The peak structure is maintained pretty well. The dominant peaks are definitely captured. One major issue is that smaller peaks, directly adjacent to larger peaks, are completely missed. These peaks can be very important for spectroscopic structure. One major An additional benefit is that "fake" peaks resulting from effects of a discrete fourier transform rather than from the actual signal begin to dimish, instead of remaining sharp. There is a lot of future analysis to do with these autoencoders. I will discuss this in the next section. 
 
@@ -87,7 +87,7 @@ The amplitude spectrum is shown above for a binary with a higher eccentricity (0
 
 
 
-### Future Work
+## Future Work
 
 This work can lead to many future investigations. The first thing I am going to do is add more parameters like masses of the small and large black hole as well as the spin of the large black hole. Also, I am going to further investigate with ReLu functions for the output layers. One aspect I would like to examine is a learning investigation comparing a faster waveform generator called the Advanced Analytical Kludge to the Numerical Kludge. The Numerical Kludge is more accurate in its waveform, but takes longer. It would be interesting to weigh the computational cost and the ability to train on many more waveforms against the slight loss in accuracy. I would also like to investigate this by added a phase compenent, pottentially making it 2D in the phase and amplitude. Additionally, gridding the parameter space different would be interesting to test. There are potentially more volatile areas of the parameter space that need to be gridded more densely than others. This will be good for memory and computational efficiency. 
 
