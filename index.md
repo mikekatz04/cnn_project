@@ -65,6 +65,14 @@ All neural network models 2 to 5 all perform better than nearest neighbors. This
 ![](images/means_and_deviations.png?raw=true)
 
 The mean errors and standard deviation on the errors for each model 1 through 6 are shown for each frequency. 
+
+
+The last plot shown here is one example of the learning curves for this process. The learning curves shown here represent the model with a kernel size of 50, ReLu output layer activation, and two convolutional layers. The learning curves show a leveling off of the rror aroung 125 epochs in. I think it is interest to examine the learning curve for testing in terms of overfitting. It shows the dropout layer is doing its job preventing over fitting. 
+
+
+![](images/fund_freq_learning_curves.png?raw=true)
+
+The learning curves for the K=50, CL=2, and ReLu activation on the output layer are shown above. 
  
 
 ## Amplitude Spectrum Autoencoder
