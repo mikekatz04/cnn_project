@@ -86,50 +86,14 @@ The amplitude spectrum is shown above for a binary with a higher eccentricity (0
 
 
 
+
 ### Future Work
 
--Compare fast AAK generation of larger data vs. NK generation. 
--2D versions
--gridding parameter space
--classification if signal is in noise
--gaussian processes and MCMC
--faster predictor of mapping from parameters to frequencies, back and forth. 
--add more parameters
--ReLu activation on the output layer. 
+This work can lead to many future investigations. The first thing I am going to do is add more parameters like masses of the small and large black hole as well as the spin of the large black hole. Also, I am going to further investigate with ReLu functions for the output layers. One aspect I would like to examine is a learning investigation comparing a faster waveform generator called the Advanced Analytical Kludge to the Numerical Kludge. The Numerical Kludge is more accurate in its waveform, but takes longer. It would be interesting to weigh the computational cost and the ability to train on many more waveforms against the slight loss in accuracy. I would also like to investigate this by added a phase compenent, pottentially making it 2D in the phase and amplitude. Additionally, gridding the parameter space different would be interesting to test. There are potentially more volatile areas of the parameter space that need to be gridded more densely than others. This will be good for memory and computational efficiency. 
 
-Inline-style: 
-!(https://github.com/mikekatz04/cnn_project/autoencoder_img_0.png "Logo Title Text 1")
+Another project I am beginning to look at is burying these signals in noise to see if the CNN can recognize the waveform and where it sits in the noise. Recognizing the waveform would be a binary classification task. I would train on injected waveforms as well as waveform-free noise time series. This would allow the CNN to train on pure noise and embedded waveforms. Then, if the waveform is found, I would feed it into a second CNN to figure out where is it and give an inital parameter estimate. LISA will see tens of thousands of signals simultaneously. Therefore, the next step would be to not only bury the waveform in noise, but also within many other injected waveforms. I do not have a lot of faith in this last suggestion, but it is defintely something to test. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Finally, I want to further investigate the autoencoder. I would like to reduce this dimensionality with enough fidelity for a few reasons. One, I am investigating using gaussian processes to quickly generate new waveforms. This will only be possible with reduced dimensionality. Additionally, I am going to investigate lowering the dimensionality of the 17 dimensional phase space describing these waveforms. In an encoded parameter space, using MCMC techinques would be faster. 
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mikekatz04/cnn_project/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
