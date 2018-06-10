@@ -33,9 +33,9 @@ In addition to the amplitude spectrum, I also had the generator output the traje
 Due to the computation time for generating these waveforms, I decided to generate a smaller test set than I plan to use in the future. Within the eccentricity and inclination limits stated above, I drew each from a uniform distribution each parameter to generate 100 test waveforms. Once again, I found the fundamental frequencies of the orbit in the same way as mentioned above.
 
 
-## Fundamental Frequency Regressor
+## Fundamental Frequency Regressor (FFR)
 
-### Methods
+### FFR Methods
 
 One issue with fourier transforms is spectral leakage between neighboring bins. This makes finding peaks an issue. Additionally, the bins are not centered on the integer multiples of the fundamental frequencies (higher order harmonics). Therefore, locating peaks can only help determine integer multiples of frequencies to a degree of certainty equal to the bin width. Also, more peaks helps further determine the system of equations we could algebraically use to determine the frequencies. However, lower eccentricity signals radiate at a small amount of frequencies, making the system of equations impossible to solve. 
 
@@ -45,7 +45,7 @@ For all models I tried, I used 2 or 4 convolutional layers with a corresponding 
 
 In addition to the convolutional neural network, I also used nearest neighbor, which I thought would work well on this small scale within the grid of input parameters. However, outside of these simplistic settings, I do not expect this method to remain as accurate and fast. I used a three nearest neighbors regressor, with weights based on the distance to the three neighbors. With the three frequencies rescaled to zero to one, I used a euclidean metric, and an L-2 distance measure.
 
-### Results
+### FFR Results
 
 Overall, all five models tested ran very similarly, which is encouraging. It seems the underlying function is not smooth. There is reason for this. The test samples are arranged by increasing eccentricity, but have varying inclinations. These two properties do not affect the phi frequency, but will after the theta and r frequencies, therefore, making these curves oscillate. In the future, I would look into more drop out layers to try and smooth it out, pending a deeper analysis of the overfitting. The plot below shows the six models I tested, including the three nearest neighbors, compared to the actual fundamental frequencies. The solid lines are the actuals while the dotted lines are the predictions. The fundamental frequency in phi is smoother, and better reproduced by the models. The frequency in the radial direction is very chaotic. So are the model fits.
 
@@ -75,13 +75,13 @@ The last plot shown here is one example of the learning curves for this process.
 The learning curves for the K=50, CL=2, and ReLu activation on the output layer are shown above. 
  
 
-## Amplitude Spectrum Autoencoder
+## Amplitude Spectrum Autoencoder (ASA)
 
-### Methods
+### ASA Methods
 
 My methods for this part of the project were similar to the first. For the autoencoder, I tried a few different architectures. However, I landed on a convolutional autoencoder with two convolutional and pooling layers to encode the spectrum, and 3 layers with upscaling to decode it. The model with 4 encoding and 5 decoding layers returned worse results when compared to the original curves. The overfitting may have been the issue here. The kernel size for all convolutional layers was 20. The pooling layers pooled by a factor of 2, same with the upscaling layers. The convolutional layers had ReLu activation functions. The output layer had linear activation. It would interested to try this again with ReLu activation on the ouput layer.
 
-### Results
+### ASA Results
 
 Two images are seen at the beginning of this page showing the results of the autoencoder. I think calculating the error can actually be misleading for analyzing the autoencoder's success. The key to this entire problem is to claculate harmonics of the fundamental frequencies from the amplitude spectral peaks. Therefore, the shape of the autoencoder and how it captures peaks are the most important factors for this project. However, for future projects, this will be a concern because The goal would be to reproduce the waveforms, which would require more precise amplitude spectrums. The peak structure is maintained pretty well. The dominant peaks are definitely captured. One major issue is that smaller peaks, directly adjacent to larger peaks, are completely missed. These peaks can be very important for spectroscopic structure. One major An additional benefit is that "fake" peaks resulting from effects of a discrete fourier transform rather than from the actual signal begin to dimish, instead of remaining sharp. There is a lot of future analysis to do with these autoencoders. I will discuss this in the next section. 
 
