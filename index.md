@@ -77,7 +77,7 @@ The mean errors and standard deviation on the errors for each model 1 through 6 
 
 ### ASA Methods
 
-My methods for this part of the project were similar to the first. For the autoencoder, I tried a few different architectures. However, I landed on a convolutional autoencoder with two convolutional and pooling layers to encode the spectrum, and 3 layers with upscaling to decode it. The model with 4 encoding and 5 decoding layers returned worse results when compared to the original curves. The overfitting may have been the issue here. The kernel size for all convolutional layers was 20. The pooling layers pooled by a factor of 2, same with the upscaling layers. The convolutional layers had ReLu activation functions. The output layer had linear activation. It would interesting to try this again with ReLu activation on the output layer.
+My methods for this part of the project were similar to the first. For the autoencoder, I tried a few different architectures. However, I landed on a convolutional autoencoder with two convolutional and pooling layers to encode the spectrum, and 3 layers with upscaling to decode it. The model with 4 encoding and 5 decoding layers returned worse results when compared to the original curves. The overfitting may have been the issue here. The kernel size for all convolutional layers was 20. The pooling layers pooled by a factor of 2, same with the upscaling layers. The convolutional layers had ReLu activation functions. The output layer had linear activation. It would be interesting to try this again with ReLu activation on the output layer.
 
 ### ASA Results
 
